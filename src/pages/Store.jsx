@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { apiUrl } from '../utils/api';
 
 function Store() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Store() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:8080/api/products');
+        const response = await fetch(apiUrl('/api/products'));
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -37,7 +38,7 @@ function Store() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/categories/active');
+        const response = await fetch(apiUrl('/api/categories/active'));
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }

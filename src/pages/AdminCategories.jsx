@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -15,7 +16,7 @@ const AdminCategories = () => {
   // Fetch all categories
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/categories');
+      const response = await fetch(apiUrl('/api/categories'));
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -68,8 +69,8 @@ const AdminCategories = () => {
 
     try {
       const url = editMode
-        ? `http://localhost:8080/api/categories/${currentCategory.id}`
-        : 'http://localhost:8080/api/categories';
+        ? apiUrl(`/api/categories/${currentCategory.id}`)
+        : apiUrl('/api/categories');
       
       const method = editMode ? 'PUT' : 'POST';
 
@@ -107,7 +108,7 @@ const AdminCategories = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/categories/${id}`, {
+      const response = await fetch(apiUrl(`/api/categories/${id}`), {
         method: 'DELETE',
       });
 
@@ -127,7 +128,7 @@ const AdminCategories = () => {
   // Toggle category active status
   const handleToggleStatus = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/categories/${id}/toggle`, {
+      const response = await fetch(apiUrl(`/api/categories/${id}/toggle`), {
         method: 'PATCH',
       });
 

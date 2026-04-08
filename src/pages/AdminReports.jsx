@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 const AdminReports = () => {
   const [reports, setReports] = useState({
@@ -23,7 +24,7 @@ const AdminReports = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:8080/api/reports?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`
+        apiUrl(`/api/reports?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}`)
       );
       const data = await response.json();
       setReports(data);

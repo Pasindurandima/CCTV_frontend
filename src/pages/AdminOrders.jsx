@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
@@ -16,7 +17,7 @@ function AdminOrders() {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/orders');
+      const response = await fetch(apiUrl('/api/orders'));
       if (!response.ok) {
         throw new Error('Failed to fetch orders');
       }
@@ -35,7 +36,7 @@ function AdminOrders() {
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/orders/${orderId}`, {
+      const response = await fetch(apiUrl(`/api/orders/${orderId}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ function AdminOrders() {
   const deleteOrder = async (orderId) => {
     if (window.confirm(`⚠️ Are you sure you want to delete Order #${orderId}?\n\nThis action cannot be undone.`)) {
       try {
-        const response = await fetch(`http://localhost:8080/api/orders/${orderId}`, {
+        const response = await fetch(apiUrl(`/api/orders/${orderId}`), {
           method: 'DELETE',
         });
 

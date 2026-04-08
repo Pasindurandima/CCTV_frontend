@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 const AdminInventory = () => {
   const [inventory, setInventory] = useState([]);
@@ -34,7 +35,7 @@ const AdminInventory = () => {
   const fetchInventory = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/inventory');
+      const response = await fetch(apiUrl('/api/inventory'));
       const data = await response.json();
       setInventory(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -47,7 +48,7 @@ const AdminInventory = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/products');
+      const response = await fetch(apiUrl('/api/products'));
       const data = await response.json();
       setProducts(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -58,7 +59,7 @@ const AdminInventory = () => {
   const handleAddInventory = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/inventory', {
+      const response = await fetch(apiUrl('/api/inventory'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newInventory)
@@ -88,7 +89,7 @@ const AdminInventory = () => {
   const handleUpdateStock = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/inventory/${selectedProduct.id}`, {
+      const response = await fetch(apiUrl(`/api/inventory/${selectedProduct.id}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updateData)
@@ -110,7 +111,7 @@ const AdminInventory = () => {
   const handleAdjustStock = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:8080/api/inventory/${selectedProduct.id}/adjust`, {
+      const response = await fetch(apiUrl(`/api/inventory/${selectedProduct.id}/adjust`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(adjustData)
@@ -134,7 +135,7 @@ const AdminInventory = () => {
   const handleDeleteInventory = async (id) => {
     if (window.confirm('Are you sure you want to delete this inventory item?')) {
       try {
-        const response = await fetch(`http://localhost:8080/api/inventory/${id}`, {
+        const response = await fetch(apiUrl(`/api/inventory/${id}`), {
           method: 'DELETE'
         });
         

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 const AdminPanel = () => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const AdminPanel = () => {
   // Fetch all products
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/products');
+      const response = await fetch(apiUrl('/api/products'));
       const data = await response.json();
       setProducts(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -42,7 +43,7 @@ const AdminPanel = () => {
   // Fetch all categories
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/categories/active');
+      const response = await fetch(apiUrl('/api/categories/active'));
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -178,8 +179,8 @@ const AdminPanel = () => {
         }
 
         const url = editMode 
-          ? `http://localhost:8080/api/products/${editId}`
-          : 'http://localhost:8080/api/products';
+          ? apiUrl(`/api/products/${editId}`)
+          : apiUrl('/api/products');
         
         const method = editMode ? 'PUT' : 'POST';
 
@@ -227,8 +228,8 @@ const AdminPanel = () => {
         };
 
         const url = editMode 
-          ? `http://localhost:8080/api/products/${editId}`
-          : 'http://localhost:8080/api/products';
+          ? apiUrl(`/api/products/${editId}`)
+          : apiUrl('/api/products');
         
         const method = editMode ? 'PUT' : 'POST';
 
@@ -309,7 +310,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        const response = await fetch(`http://localhost:8080/api/products/${id}`, {
+        const response = await fetch(apiUrl(`/api/products/${id}`), {
           method: 'DELETE',
         });
 

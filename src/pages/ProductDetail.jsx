@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import ProductImageSlideshow from '../components/ProductImageSlideshow';
+import { apiUrl } from '../utils/api';
 
 const CONTACT_NUMBERS = {
   phone1: '077 760 2021',
@@ -21,7 +22,7 @@ function ProductDetail() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:8080/api/products/${id}`);
+        const response = await fetch(apiUrl(`/api/products/${id}`));
         if (!response.ok) {
           throw new Error('Product not found');
         }

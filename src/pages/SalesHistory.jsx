@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 function SalesHistory() {
   const [orders, setOrders] = useState([]);
@@ -16,7 +17,7 @@ function SalesHistory() {
   const fetchCompletedOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/sales-history');
+      const response = await fetch(apiUrl('/api/sales-history'));
       if (!response.ok) {
         throw new Error('Failed to fetch sales history');
       }

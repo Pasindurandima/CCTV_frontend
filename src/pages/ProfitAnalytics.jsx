@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../utils/api';
 
 function ProfitAnalytics() {
   const [analytics, setAnalytics] = useState(null);
@@ -13,7 +14,7 @@ function ProfitAnalytics() {
   const fetchProfitAnalytics = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8080/api/profit-analytics');
+      const response = await fetch(apiUrl('/api/profit-analytics'));
       if (!response.ok) {
         throw new Error('Failed to fetch profit analytics');
       }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiUrl } from '../utils/api';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AdminDashboard = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/products');
+      const response = await fetch(apiUrl('/api/products'));
       const data = await response.json();
       // Ensure data is an array
       const productList = Array.isArray(data) ? data : [];
